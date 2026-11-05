@@ -1,0 +1,1 @@
+"""Application package for COMP490 projects."""
