@@ -1,6 +1,6 @@
-# COMP490 AI Software Engineering
+# COMP490-SEGA Project Starter
 
-Starter template for COMP490-AI-Software-Engineering.
+Starter template for COMP490-SEGA-Project-Starter.
 
 ## Getting Started
 

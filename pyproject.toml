@@ -3,9 +3,9 @@ requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "comp490-ai-software-engineering"
+name = "comp490-sega-project-starter"
 version = "0.1.0"
-description = "Starter template for COMP490 AI Software Engineering"
+description = "Starter template for COMP490-SEGA-Project-Starter"
 requires-python = ">=3.12"
 dependencies = []
 
