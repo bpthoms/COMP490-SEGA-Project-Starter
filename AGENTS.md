@@ -9,7 +9,10 @@ intended to be explored and extended with AI-assisted engineering tools.
 
 - Follow Python coding conventions.
 - Use modular architecture.
-- Separate API, business logic, and persistence.
+- Separate API routes, business logic, and persistence concerns.
+- Define persistence models with the SQLAlchemy 2.x ORM.
+- Use Pydantic schemas to validate API requests and responses; do not expose
+  ORM models directly as API contracts.
 - Write tests for new functionality.
 - Avoid unnecessary dependencies.
 - Document significant architectural decisions.

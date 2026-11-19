@@ -60,8 +60,9 @@ cohesion; document any deliberate deviation.
 | --- | --- | --- | --- |
 | `app/api` | HTTP routes, request validation, and response formatting | `app/services` | [FR IDs] |
 | `app/services` | Application workflows and business rules | `app/models`, `app/database` | [FR IDs] |
-| `app/models` | Domain and data representations | Services and persistence | [FR/NFR IDs] |
-| `app/database` | Connections, queries, and transaction boundaries | SQLite, services | [FR/NFR IDs] |
+| `app/models` | SQLAlchemy ORM entities, relationships, and persistence constraints | Services and database | [FR/NFR IDs] |
+| `app/schemas` | Pydantic request and response contracts | API and services | [FR/NFR IDs] |
+| `app/database` | SQLAlchemy engine, sessions, and persistence access | SQLite, models, services | [FR/NFR IDs] |
 | [Additional component] | [One clear responsibility] | [Dependencies] | [Requirement IDs] |
 
 ### 3.1 Component Diagram
@@ -71,10 +72,12 @@ cohesion; document any deliberate deviation.
 ```mermaid
 flowchart TD
     Client --> API[API layer]
+    API --> Schemas[Pydantic schemas]
     API --> Services[Service layer]
-    Services --> Models[Models]
+    Services --> Models[SQLAlchemy ORM models]
     Services --> Persistence[Persistence layer]
-    Persistence --> Database[(SQLite)]
+    Models --> Persistence
+    Persistence --> Database[(SQLite via SQLAlchemy)]
 ```
 
 ### 3.2 Dependency Rules
@@ -87,8 +90,9 @@ flowchart TD
 
 ### 4.1 Data Model
 
-[Describe the main entities, relationships, ownership, and lifecycle. Include
-an entity-relationship diagram when it makes those relationships clearer.]
+[Describe the main SQLAlchemy ORM entities, relationships, ownership, and
+lifecycle. Include an entity-relationship diagram and explain how its entities,
+cardinalities, keys, and constraints correspond to the ORM model definitions.]
 
 | Entity or table | Purpose | Key relationships | Integrity rules |
 | --- | --- | --- | --- |
@@ -96,9 +100,12 @@ an entity-relationship diagram when it makes those relationships clearer.]
 
 ### 4.2 Persistence Decisions
 
-[Explain schema creation or migrations, transaction boundaries, connection
-management, and how test data is isolated. The starter connection helper
-enables SQLite foreign-key enforcement but does not prescribe a schema.]
+[Explain schema creation or migrations, transaction boundaries, and how test
+data is isolated. Document how SQLAlchemy sessions are created, passed to the
+service or persistence layer, committed or rolled back, and closed. The starter
+provides an engine, session factory, declarative base, and request-scoped
+database dependency while retaining SQLite foreign-key enforcement; students
+remain responsible for the project-specific ORM models and schema.]
 
 ## 5. Runtime Behavior
 

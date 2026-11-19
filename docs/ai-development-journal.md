@@ -30,3 +30,25 @@ For each substantial AI-assisted change, record:
 - **Limitations and follow-up:** Each team must replace the example content,
   remove sections that do not apply, keep requirements measurable, and update
   architecture decisions and traceability as implementation evolves.
+
+## 2026-11-19: SQLAlchemy database foundation
+
+- **Goal and context:** Introduce the SQLAlchemy 2.x ORM in Module 2 without
+  implementing project-specific tables or taking design decisions away from
+  students.
+- **AI assistance:** Codex replaced the direct SQLite connection helper with an
+  engine, session factory, declarative base, request-scoped session dependency,
+  and SQLite foreign-key event. It also added a Pydantic schemas package,
+  database configuration tests, and supporting course documentation.
+- **Review decisions:** The foreign-key listener is scoped to the application
+  engine, and the session dependency has an explicit generator type. Alembic,
+  database drivers, sample entities, and CRUD operations were intentionally not
+  added.
+- **Verification:** All three tests passed, including checks that SQLite
+  foreign-key enforcement is active and the database dependency yields a
+  SQLAlchemy session. Python source compilation and `git diff --check` also
+  passed. The test run reported one third-party Starlette deprecation warning
+  on the local Python 3.14 environment.
+- **Limitations and follow-up:** Students must create and explain their own ORM
+  entities, relationships, constraints, validation schemas, and persistence
+  behavior. The starter does not yet provide schema migrations.
